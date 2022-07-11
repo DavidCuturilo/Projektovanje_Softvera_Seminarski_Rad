@@ -50,7 +50,7 @@ public class Director extends BaseModel implements Serializable {
 
     @Override
     public String getAttributeList() {
-        return "id, imePrezime, performance";
+        return "id, imePrezime, performanceId";
     }
 
     @Override

@@ -18,6 +18,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
+import model.Performance;
+import model.Reservation;
+import model.ReservationItem;
 
 /**
  *
@@ -30,7 +34,7 @@ public class ClientHandler extends Thread {
     private ObjectInputStream in;
     private ServerThread serverThread;
     private Controller controller;
-//    private Account userAccount;
+    private Account userAccount;
     private Date loginTime;
     ClientHandler(Socket socket, ServerThread serverThread, Controller controller) {
 
@@ -72,7 +76,106 @@ public class ClientHandler extends Thread {
     }
 
     private Response handleRequest(Request request) {
-        return null;
+        switch (request.getOperation()) {
+            case LOGIN:
+                return this.login(request);
+            case GET_ALL_PERFORMANCES:
+                return this.getAllPerformances();
+            case SAVE_RESERVATION:
+                return this.saveReservation(request);
+            case SAVE_RESERVATION_ITEMS:
+                return this.saveReservationItems(request);
+            case GET_MAX_INDEX:
+                return this.getMaxIndex();
+            default:
+                return new Response(ResponseType.ERROR, null, new UnsupportedOperationException());
+        }
+    }
+    
+    private Response login(Request request) {
+        Response response;
+        try {
+
+            Account requestMember = (Account) request.getData();
+            Account memberAccount = this.controller.login(requestMember.getUsername(), requestMember.getPassword());
+            for (ClientHandler ch : this.serverThread.getClients()) {
+                if (ch!=this && ch.getUserAccount()!=null && ch.getUserAccount().getId() == memberAccount.getId()) {
+                    throw new Exception("Korisnik je već ulogovan");
+                }
+            }
+            response = new Response(ResponseType.SUCCESS, memberAccount, null);
+            this.userAccount = memberAccount;
+            this.loginTime = new Date();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            response = new Response(ResponseType.ERROR, null, ex);
+        }
+        return response;
+    }
+    
+    private Response getAllPerformances() {
+        Response response;
+        try {
+            List<Performance> performances = this.controller.getAllPerformances();
+            response = new Response(ResponseType.SUCCESS, performances, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    private Response saveReservation(Request request){
+        Response response;
+        try {
+            Reservation reservation = (Reservation) request.getData();
+            controller.saveReservation(reservation);
+            response = new Response(ResponseType.SUCCESS, null, null);
+
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response saveReservationItems(Request request){
+        Response response;
+        try {
+            List<ReservationItem> reservationItems = (List<ReservationItem>) request.getData();
+            controller.saveReservationItems(reservationItems);
+            response = new Response(ResponseType.SUCCESS, null, null);
+
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response getMaxIndex(){
+        Response response;
+        try {
+            Long getMaxIndex = this.controller.getMaxIndex();
+            response = new Response(ResponseType.SUCCESS, getMaxIndex, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+        
+    }
+    
+    public Account getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(Account userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public Date getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(Date loginTime) {
+        this.loginTime = loginTime;
     }
     
     void sendDisconnectEvent() {
@@ -82,4 +185,6 @@ public class ClientHandler extends Thread {
             Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+
 }

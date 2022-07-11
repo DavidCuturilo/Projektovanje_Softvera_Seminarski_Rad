@@ -83,7 +83,7 @@ public class Reservation extends BaseModel implements Serializable {
 
     @Override
     public String getAttributeList() {
-        return "id, dateOfReservation, deadline, account, member, reservedItems";
+        return "id, dateOfReservation, deadline, accountId, memberId";
     }
 
     @Override

@@ -63,7 +63,7 @@ public class Member extends BaseModel implements Serializable {
 
     @Override
     public String getAttributeList() {
-        return "id, imePrezime, email, account";
+        return "id, imePrezime, email, accountId";
     }
 
     @Override

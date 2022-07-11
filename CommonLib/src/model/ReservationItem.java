@@ -60,7 +60,7 @@ public class ReservationItem extends BaseModel implements Serializable {
 
     @Override
     public String getAttributeList() {
-        return "id, reservation, quantity, performance";
+        return "id, reservationId, quantity, performanceId";
     }
 
     @Override

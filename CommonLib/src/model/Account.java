@@ -21,6 +21,11 @@ public class Account extends BaseModel implements Serializable {
     private Member member;
     private boolean isAdmin;
 
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    
     public Account(Long id, String username, String password, Member member, boolean isAdmin) {
         this.id = id;
         this.username = username;
@@ -81,7 +86,7 @@ public class Account extends BaseModel implements Serializable {
 
     @Override
     public String getAttributeValues() {
-        return "'" + this.id + "', '" + this.username + "', '" + this.password + "', '" + this.isAdmin + "', " + this.member.getId();
+        return "'" + this.id + "', '" + this.username + "', '" + this.password + "', " + this.member.getId() + "', '" + this.isAdmin;
     }
 
     @Override

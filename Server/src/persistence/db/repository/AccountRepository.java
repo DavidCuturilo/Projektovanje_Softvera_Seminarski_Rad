@@ -46,7 +46,7 @@ public class AccountRepository implements DBRepository<Account, Long>{
     public Account getForLogin(String username, String password) throws SQLException, IOException {
         try {
             this.connection = DBConnectionFactory.getInstance().getConnection();
-            PreparedStatement ps = this.connection.prepareStatement("SELECT * FROM ACCOUNT a LEFT JOIN member m ON a.memberId= m.id WHERE a.username=? AND a.password=?;");
+            PreparedStatement ps = this.connection.prepareStatement("SELECT * FROM Account a LEFT JOIN Member m ON a.memberId= m.id WHERE a.username=? AND a.password=?;");
             ps.setString(1, username);
             ps.setString(2, password);
             

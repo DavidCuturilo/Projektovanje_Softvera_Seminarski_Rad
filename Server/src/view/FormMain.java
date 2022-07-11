@@ -63,6 +63,7 @@ public class FormMain extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -70,19 +71,19 @@ public class FormMain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnStartServer.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnStartServer.setText("Pokreni server");
+        btnStartServer.setText("Start server");
         btnStartServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStartServerActionPerformed(evt);
             }
         });
 
-        lblStatus.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatus.setText("Server je zaustavljen");
+        lblStatus.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblStatus.setText("Offline");
 
         btnStopServer.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnStopServer.setText("Zaustavi server");
+        btnStopServer.setText("Stop server");
         btnStopServer.setEnabled(false);
         btnStopServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +91,7 @@ public class FormMain extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -115,8 +117,11 @@ public class FormMain extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        jLabel1.setText("Prijavljeni korisnici");
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
+        jLabel1.setText("Registered users");
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setText("Server status:");
 
         jMenu1.setText("Config");
 
@@ -137,35 +142,34 @@ public class FormMain extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnStartServer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                    .addComponent(btnStopServer, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(btnStopServer, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnStartServer, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnStartServer)
+                    .addComponent(btnStopServer)
+                    .addComponent(jLabel2)
+                    .addComponent(lblStatus))
+                .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(btnStartServer)
-                        .addGap(68, 68, 68)
-                        .addComponent(btnStopServer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,12 +177,12 @@ public class FormMain extends javax.swing.JFrame {
 
     private void btnStartServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartServerActionPerformed
         startServer();
-        lblStatus.setText("Server je pokrenut");
+        lblStatus.setText("Online");
     }//GEN-LAST:event_btnStartServerActionPerformed
 
     private void btnStopServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopServerActionPerformed
         stopServer();
-        lblStatus.setText("Server je zaustavljen");
+        lblStatus.setText("Offline");
         this.serverThread.disconnectClients();
         this.serverThread = null;
         //clear table
@@ -231,29 +235,30 @@ public class FormMain extends javax.swing.JFrame {
     }
 
     public void fillTable() throws Exception {
-//        if (this.serverThread != null) {
-//            List<ClientHandler> clients = this.serverThread.getClients();
-//            DefaultTableModel dtm = (DefaultTableModel) this.jTable1.getModel();
-//            int rows = dtm.getRowCount();
-//            if (rows >= 0) {
-//                for (int i = rows - 1; i >= 0; i--) {
-//                    dtm.removeRow(i);
-//                }
-//            }
-//
-//            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-//            for (ClientHandler ch : clients) {
-//                if (ch.getUserAccount() != null) {
-//                    String loginTime = sdf.format(ch.getLoginTime());
-//                    dtm.addRow(new Object[]{ch.getUserAccount().getUsername(), loginTime});
-//                }
-//            }
-//        }
+        if (this.serverThread != null) {
+            List<ClientHandler> clients = this.serverThread.getClients();
+            DefaultTableModel dtm = (DefaultTableModel) this.jTable1.getModel();
+            int rows = dtm.getRowCount();
+            if (rows >= 0) {
+                for (int i = rows - 1; i >= 0; i--) {
+                    dtm.removeRow(i);
+                }
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+            for (ClientHandler ch : clients) {
+                if (ch.getUserAccount() != null) {
+                    String loginTime = sdf.format(ch.getLoginTime());
+                    dtm.addRow(new Object[]{ch.getUserAccount().getUsername(), loginTime});
+                }
+            }
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStartServer;
     private javax.swing.JButton btnStopServer;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

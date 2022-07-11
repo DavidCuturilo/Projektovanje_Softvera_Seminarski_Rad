@@ -71,7 +71,7 @@ public class Performance extends BaseModel implements Serializable {
 
     @Override
     public String getAttributeList() {
-        return "id, performanceDate, premiere, stage, theatricalPlay";
+        return "id, performanceDate, premiere, stage, theatricalPlayId";
     }
 
     @Override

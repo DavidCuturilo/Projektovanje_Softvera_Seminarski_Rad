@@ -60,7 +60,7 @@ public class Actor extends BaseModel implements Serializable {
 
     @Override
     public String getAttributeList() {
-        return "id, imePrezime, role, performance";
+        return "id, imePrezime, role, performanceId";
     }
 
     @Override
