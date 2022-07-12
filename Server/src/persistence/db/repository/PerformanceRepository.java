@@ -40,7 +40,7 @@ public class PerformanceRepository implements DBRepository<Performance, Long>{
             while(rs.next()){
                 performance = new Performance(rs.getLong("p.id"), rs.getDate("p.performanceDate"), rs.getBoolean("p.premiere"), rs.getString("p.stage"), null);
                 if(rs.getString("t.id")!=null){
-                    performance.setTheatricalPlay(new TheatricalPlay(rs.getLong("t.id"), Genre.valueOf(rs.getString("t.genre")), rs.getString("t.title"), rs.getDate("t.duration")));
+                    performance.setTheatricalPlay(new TheatricalPlay(rs.getLong("t.id"), Genre.valueOf(rs.getString("t.genre")), rs.getString("t.title"), rs.getInt("t.duration")));
                 }
                 performances.add(performance);
             }

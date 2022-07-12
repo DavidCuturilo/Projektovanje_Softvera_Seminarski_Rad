@@ -87,6 +87,14 @@ public class ClientHandler extends Thread {
                 return this.saveReservationItems(request);
             case GET_MAX_INDEX:
                 return this.getMaxIndex();
+            case GET_ALL_RESERVATION_ITEMS:
+                return this.getReservationItemsForUser(request);
+            case REMOVE_RESERVATION_ITEM:
+                return this.removeReservationItem(request);
+            case GET_ALL_RESERVATION_ITEMS_FOR_RESERVATION:
+                return this.getReservationItemsForReservation(request);
+            case REMOVE_RESERVATION:
+                return this.removeReservation(request);
             default:
                 return new Response(ResponseType.ERROR, null, new UnsupportedOperationException());
         }
@@ -159,7 +167,54 @@ public class ClientHandler extends Thread {
             response = new Response(ResponseType.ERROR, null, e);
         }
         return response;
-        
+    }
+    
+    public Response getReservationItemsForUser(Request request){
+        Response response;
+        try {
+            Long userId = (Long)request.getData();
+            List<ReservationItem> reservationItems = this.controller.getAllReservationItemsForUser(userId);
+            response = new Response(ResponseType.SUCCESS, reservationItems, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    } 
+    
+    public Response removeReservationItem(Request request){
+        Response response;
+        try {
+            ReservationItem reservationItem = (ReservationItem) request.getData();
+            controller.removeReservationItem(reservationItem);
+            response = new Response(ResponseType.SUCCESS, null, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response getReservationItemsForReservation(Request request) {
+        Response response;
+        try {
+            Long reservationId = (Long)request.getData();
+            List<ReservationItem> reservationItems = this.controller.getAllReservationItemsForReservation(reservationId);
+            response = new Response(ResponseType.SUCCESS, reservationItems, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response removeReservation(Request request) {
+        Response response;
+        try {
+            Reservation reservation = (Reservation) request.getData();
+            controller.removeReservation(reservation);
+            response = new Response(ResponseType.SUCCESS, null, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
     }
     
     public Account getUserAccount() {

@@ -16,8 +16,8 @@ import model.Performance;
  */
 public class TableModelPerformance extends AbstractTableModel {
     private List<Performance> performances;
-    private String atributi[] = new String[] {"Title", "Genre", "Duration", "Performance Date", "Stage", "Premiere"};
-    private Class atributsClass[] = new Class[] {String.class, String.class, Date.class, Date.class, String.class, Boolean.class};
+    private String atributi[] = new String[] {"Title", "Genre", "Duration(min)", "Performance Date", "Stage", "Premiere"};
+    private Class atributsClass[] = new Class[] {String.class, String.class, Integer.class, Date.class, String.class, Boolean.class};
 
     public TableModelPerformance(List<Performance> performances) {
         this.performances = performances;

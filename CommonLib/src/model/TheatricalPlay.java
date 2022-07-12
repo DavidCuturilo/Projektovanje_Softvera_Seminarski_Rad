@@ -19,9 +19,9 @@ public class TheatricalPlay extends BaseModel implements Serializable {
     private Long id;
     private Genre genre;
     private String title;
-    private Date duration;
+    private int duration;
 
-    public TheatricalPlay(Long id, Genre genre, String title, Date duration) {
+    public TheatricalPlay(Long id, Genre genre, String title, int duration) {
         this.id = id;
         this.genre = genre;
         this.title = title;
@@ -40,7 +40,7 @@ public class TheatricalPlay extends BaseModel implements Serializable {
         return title;
     }
 
-    public Date getDuration() {
+    public int getDuration() {
         return duration;
     }
 
@@ -56,7 +56,7 @@ public class TheatricalPlay extends BaseModel implements Serializable {
         this.title = title;
     }
 
-    public void setDuration(Date duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

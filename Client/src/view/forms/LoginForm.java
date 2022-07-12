@@ -9,7 +9,9 @@ import controller.Controller;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 import model.Account;
+import view.forms.admin.AdminHomePanel;
 import view.forms.member.MemberDataPanel;
+import view.forms.member.MemberHomePanel;
 //import view.forms.admin.AdminMainForm;
 //import view.forms.employee.EmployeeMainForm;
 
@@ -61,7 +63,7 @@ public class LoginForm extends javax.swing.JFrame {
         lblPassword.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblPassword.setText("Password:");
 
-        btnLogin.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
+        btnLogin.setFont(new java.awt.Font("Nirmala UI", 0, 16)); // NOI18N
         btnLogin.setText("Prijavi se");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +104,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPassword))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(btnLogin)
                 .addContainerGap())
         );
@@ -147,10 +149,9 @@ public class LoginForm extends javax.swing.JFrame {
             controller.login(account);
 
             if(controller.getUserAccount().isIsAdmin()){
-//                new AdminMainForm().setVisible(true);
+                new AdminHomePanel().setVisible(true);
             }else{
-//                new EmployeeMainForm().setVisible(true);
-                  new MemberDataPanel().setVisible(true);
+                new MemberHomePanel().setVisible(true);
             }
             this.dispose();
         } catch (Exception ex) {

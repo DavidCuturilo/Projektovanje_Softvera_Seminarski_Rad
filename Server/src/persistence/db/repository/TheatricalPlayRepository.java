@@ -32,7 +32,7 @@ public class TheatricalPlayRepository implements DBRepository<TheatricalPlay, Lo
         
         List<TheatricalPlay> theatricalPlays = new ArrayList<>();
         while(rs.next()){
-            TheatricalPlay tp = new TheatricalPlay(rs.getLong("t.id"), Genre.valueOf(rs.getString("t.genre")), rs.getString("t.title"), rs.getDate("t.duration"));
+            TheatricalPlay tp = new TheatricalPlay(rs.getLong("t.id"), Genre.valueOf(rs.getString("t.genre")), rs.getString("t.title"), rs.getInt("t.duration"));
             theatricalPlays.add(tp);
         }
         rs.close();
@@ -47,7 +47,7 @@ public class TheatricalPlayRepository implements DBRepository<TheatricalPlay, Lo
         PreparedStatement ps = this.connection.prepareStatement("INSERT INTO TheatricalPlay(genre,title,duration) VALUES(?,?,?)");
         ps.setString(1, t.getGenre().toString());
         ps.setString(2, t.getTitle());
-        ps.setDate(3, (Date) t.getDuration());
+        ps.setInt(3, t.getDuration());
         int affectedRows = ps.executeUpdate();
 
     }

@@ -48,8 +48,11 @@ public class ReservationRepository implements DBRepository<Reservation, Long>{
     }
 
     @Override
-    public void delete(Reservation t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(Reservation r) throws Exception {
+        this.connection = DBConnectionFactory.getInstance().getConnection();
+        PreparedStatement ps = this.connection.prepareStatement("DELETE FROM Reservation WHERE id =?;");
+        ps.setLong(1, r.getId());
+        int affectedRows = ps.executeUpdate();
     }
 
     @Override

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.forms.member;
+package view.forms.admin;
 
+import view.forms.member.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
@@ -13,12 +14,12 @@ import model.Account;
  *
  * @author David
  */
-public class MemberDataPanel extends javax.swing.JFrame {
+public class AdminDataPanel extends javax.swing.JFrame {
 
     /**
-     * Creates new form MemberDataPanel
+     * Creates new form AdminDataPanel
      */
-    public MemberDataPanel() {
+    public AdminDataPanel() {
         initComponents();
         Account a = controller.Controller.getInstance().getUserAccount();
         imePrezime.setText("Ime i prezime: " +a.getMember().getImePrezime());
@@ -104,20 +105,21 @@ public class MemberDataPanel extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MemberDataPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDataPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MemberDataPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDataPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MemberDataPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDataPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MemberDataPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDataPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MemberDataPanel().setVisible(true);
+                new AdminDataPanel().setVisible(true);
             }
         });
     }

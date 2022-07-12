@@ -126,6 +126,78 @@ public class Controller {
             throw ex;
         }
     }
+    
+    public List<ReservationItem> getAllReservationItemsForUser(Long id) throws Exception{
+        Request request = new Request(Operation.GET_ALL_RESERVATION_ITEMS, id);
+        List<ReservationItem> items;
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                items =  (List<ReservationItem>) response.getData();
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+            return items;
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public void removeReservationItem(ReservationItem reservationItem) throws Exception{
+        Request request = new Request(Operation.REMOVE_RESERVATION_ITEM, reservationItem);
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                System.out.println("Uspesno obrisana stavke rezervacije");
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public List<ReservationItem> getAllReservationItemsForReservation(Long reservationId) throws Exception{
+        Request request = new Request(Operation.GET_ALL_RESERVATION_ITEMS_FOR_RESERVATION, reservationId);
+        List<ReservationItem> items;
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                items =  (List<ReservationItem>) response.getData();
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+            return items;
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    } 
+    
+    public void removeReservation(Reservation reservation) throws Exception{
+        Request request = new Request(Operation.REMOVE_RESERVATION, reservation);
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                System.out.println("Uspesno obrisana rezervacija");
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
 
     public Account getUserAccount() {
         return userAccount;

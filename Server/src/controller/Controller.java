@@ -12,8 +12,12 @@ import model.Reservation;
 import model.ReservationItem;
 import so.AbstractSO;
 import so.GetAllPerformancesSO;
+import so.GetAllReservationItemsForReservationSO;
+import so.GetAllReservationItemsForUserSO;
 import so.GetMaxIndexSO;
 import so.LoginSO;
+import so.RemoveReservationItemSO;
+import so.RemoveReservationSO;
 import so.SaveReservationItemsSO;
 import so.SaveReservationSO;
 
@@ -53,5 +57,27 @@ public class Controller {
         AbstractSO getMaxIndexSO = new GetMaxIndexSO();
         Long maxIndex = (Long)getMaxIndexSO.execute(null);
         return maxIndex;
+    }
+    
+    public List<ReservationItem> getAllReservationItemsForUser(Long userId) throws Exception {
+        AbstractSO getAllReservationItemsForUserSO = new GetAllReservationItemsForUserSO();
+        List<ReservationItem> reservationItems = (List<ReservationItem>) getAllReservationItemsForUserSO.execute(userId);
+        return reservationItems;
+    }
+    
+    public void removeReservationItem(ReservationItem reservationItem) throws Exception{
+        AbstractSO removeReservationItemSO = new RemoveReservationItemSO();
+        removeReservationItemSO.execute(reservationItem);
+    }
+    
+    public List<ReservationItem> getAllReservationItemsForReservation(Long reservationId) throws Exception {
+        AbstractSO getAllReservationItemsForReservationSO = new GetAllReservationItemsForReservationSO();
+        List<ReservationItem> reservationItems = (List<ReservationItem>) getAllReservationItemsForReservationSO.execute(reservationId);
+        return reservationItems;
+    }
+    
+    public void removeReservation(Reservation reservation) throws Exception{
+        AbstractSO removeReservationSO = new RemoveReservationSO();
+        removeReservationSO.execute(reservation);
     }
 }

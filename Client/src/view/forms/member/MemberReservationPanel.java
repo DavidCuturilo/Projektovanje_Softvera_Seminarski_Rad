@@ -59,7 +59,8 @@ public class MemberReservationPanel extends javax.swing.JFrame {
         tblRezervacije = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Repertoar");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
         jLabel1.setText("Repertoar");
@@ -96,7 +97,6 @@ public class MemberReservationPanel extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblPerformance.setColumnSelectionAllowed(false);
         jScrollPane1.setViewportView(tblPerformance);
 
         tblRezervacije.setModel(new javax.swing.table.DefaultTableModel(
@@ -198,6 +198,10 @@ public class MemberReservationPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        TableModelPerformance tm = (TableModelPerformance) tblRezervacije.getModel();
+        if(tm.getAllPerformance().size() < 1) {
+            JOptionPane.showMessageDialog(this, "Reservation must be created!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
         int deadlineYear = new Date().getYear();
         int deadlineMonth = new Date().getMonth();
         int deadlineDay = new Date().getDate()+7;
@@ -238,7 +242,10 @@ public class MemberReservationPanel extends javax.swing.JFrame {
             Logger.getLogger(MemberReservationPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        List<Performance> reservations = new ArrayList<>();
+        TableModelPerformance tmR = new TableModelPerformance(reservations);
+        tblRezervacije.setModel(tmR);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
