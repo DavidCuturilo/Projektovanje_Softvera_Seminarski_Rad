@@ -22,6 +22,7 @@ import view.forms.TableModelUserReservation;
 public class AdminUserReservationsPanel extends javax.swing.JFrame {
 
     private Controller controller; 
+    private List<Reservation> allReservations;
     /**
      * Creates new form AdminUserReservationsPanel
      */
@@ -45,6 +46,7 @@ public class AdminUserReservationsPanel extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         membersCMB = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("User reservations");
@@ -75,6 +77,13 @@ public class AdminUserReservationsPanel extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Prikazi za sve korisnike");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,13 +91,15 @@ public class AdminUserReservationsPanel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(48, 48, 48)
                         .addComponent(membersCMB, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,7 +110,9 @@ public class AdminUserReservationsPanel extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(membersCMB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(47, 47, 47)
+                .addGap(9, 9, 9)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(48, Short.MAX_VALUE))
         );
@@ -118,6 +131,11 @@ public class AdminUserReservationsPanel extends javax.swing.JFrame {
             Logger.getLogger(AdminUserReservationsPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        TableModelUserReservation tmN = new TableModelUserReservation(allReservations);
+        tblMembers.setModel(tmN);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,6 +178,7 @@ public class AdminUserReservationsPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> membersCMB;
@@ -168,6 +187,7 @@ public class AdminUserReservationsPanel extends javax.swing.JFrame {
 
     private void prepareView() throws Exception {
         List<Reservation> reservationsForMembers = this.controller.getAllReservationsForMembers();
+        this.allReservations = reservationsForMembers;
         TableModelUserReservation tm = new TableModelUserReservation(reservationsForMembers);
         tblMembers.setModel(tm);
         

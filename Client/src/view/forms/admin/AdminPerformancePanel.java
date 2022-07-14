@@ -181,6 +181,7 @@ public class AdminPerformancePanel extends javax.swing.JFrame {
                 }
             }
             JOptionPane.showMessageDialog(this, "Successfully  saved new performances", "Success", JOptionPane.INFORMATION_MESSAGE);
+            this.oldPerformanceSize++;
         } catch (Exception ex) {
             Logger.getLogger(AdminPerformancePanel.class.getName()).log(Level.SEVERE, null, ex);
         }

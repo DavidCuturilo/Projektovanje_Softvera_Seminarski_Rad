@@ -71,9 +71,9 @@ public class AdminHomePanel extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel3.setText("of theatre  \"Boško Buha\"");
 
-        jMenu1.setText("Profile");
+        jMenu1.setText("Profil");
 
-        jMenuItem1.setText("Personal details");
+        jMenuItem1.setText("Detalji profila");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
