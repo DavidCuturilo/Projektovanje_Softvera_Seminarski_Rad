@@ -21,6 +21,10 @@ public class Performance extends BaseModel implements Serializable {
     private String stage;
     private TheatricalPlay theatricalPlay;
 
+    public Performance(TheatricalPlay theatricalPlay) {
+        this.theatricalPlay = theatricalPlay;
+    }
+
     public Performance(Long id, Date performanceDate, boolean premiere, String stage, TheatricalPlay theatricalPlay) {
         this.id = id;
         this.performanceDate = performanceDate;

@@ -7,19 +7,27 @@ package controller;
 
 import java.util.List;
 import model.Account;
+import model.Member;
 import model.Performance;
 import model.Reservation;
 import model.ReservationItem;
+import model.TheatricalPlay;
 import so.AbstractSO;
+import so.AddTheatricalPlaySO;
 import so.GetAllPerformancesSO;
 import so.GetAllReservationItemsForReservationSO;
 import so.GetAllReservationItemsForUserSO;
+import so.GetAllReservationsForMembersSO;
+import so.GetAllReservationsForSelectedMemberSO;
 import so.GetMaxIndexSO;
+import so.GetTheatricalPlayForTitleSO;
 import so.LoginSO;
 import so.RemoveReservationItemSO;
 import so.RemoveReservationSO;
+import so.SavePerformanceSO;
 import so.SaveReservationItemsSO;
 import so.SaveReservationSO;
+import so.SaveTheatricalPlaySO;
 
 /**
  *
@@ -79,5 +87,39 @@ public class Controller {
     public void removeReservation(Reservation reservation) throws Exception{
         AbstractSO removeReservationSO = new RemoveReservationSO();
         removeReservationSO.execute(reservation);
+    }
+    
+    public Long saveTheatricalPlay(TheatricalPlay theatricalPlay) throws Exception {
+        AbstractSO saveTheatricalPlaySO = new SaveTheatricalPlaySO();
+        Long id = (Long)saveTheatricalPlaySO.execute(theatricalPlay);
+        return id;
+    }
+    
+    public void savePerformance(Performance performance) throws Exception{
+        AbstractSO savePerformanceSO = new SavePerformanceSO();
+        savePerformanceSO.execute(performance);
+    }
+    
+    public TheatricalPlay getTheatricalPlayForTitle(String title) throws Exception{
+        AbstractSO getTheatricalPlayForTitleSO = new GetTheatricalPlayForTitleSO();
+        TheatricalPlay theatricalPlay = (TheatricalPlay) getTheatricalPlayForTitleSO.execute(title);
+        return theatricalPlay;
+    }
+    
+    public List<Reservation> getAllReservationsForMembers() throws Exception {
+        AbstractSO getAllReservationsForMembersSO = new GetAllReservationsForMembersSO();
+        List<Reservation> reservations = (List<Reservation>) getAllReservationsForMembersSO.execute(null);
+        return reservations;
+    }
+    
+    public List<Reservation> getAllReservationsForSelectedMember(String imePrezime) throws Exception {
+        AbstractSO getAllReservationsForSelectedMemberSO = new GetAllReservationsForSelectedMemberSO();
+        List<Reservation> reservations = (List<Reservation>) getAllReservationsForSelectedMemberSO.execute(imePrezime);
+        return reservations;
+    }
+    
+    public void getTheatricalPLay(TheatricalPlay theatricalPlay) throws Exception{
+        AbstractSO addTheatricalPlaySO = new AddTheatricalPlaySO();
+        addTheatricalPlaySO.execute(theatricalPlay);
     }
 }

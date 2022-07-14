@@ -19,9 +19,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Member;
 import model.Performance;
 import model.Reservation;
 import model.ReservationItem;
+import model.TheatricalPlay;
 
 /**
  *
@@ -95,6 +97,18 @@ public class ClientHandler extends Thread {
                 return this.getReservationItemsForReservation(request);
             case REMOVE_RESERVATION:
                 return this.removeReservation(request);
+            case SAVE_THEATRICAL_PLAY:
+                return this.saveTheatricalPlay(request);
+            case SAVE_PERFORMANCE:
+                return this.savePerformance(request);
+            case GET_THEATRICAL_PLAY_TITLE:
+                return this.getTheatricalPlayForTitle(request);
+            case GET_ALL_RESERVATIONS_FOR_MEMBERS:
+                return this.getAllReservationsForMembers();
+            case GET_ALL_RESERVATION_FOR_SELECTED_MEMBER:
+                return this.getAllReservationsForSelectedMember(request);
+            case ADD_THEATRICAL_PLAY:
+                return this.addTheatricalPlay(request);
             default:
                 return new Response(ResponseType.ERROR, null, new UnsupportedOperationException());
         }
@@ -210,6 +224,80 @@ public class ClientHandler extends Thread {
         try {
             Reservation reservation = (Reservation) request.getData();
             controller.removeReservation(reservation);
+            response = new Response(ResponseType.SUCCESS, null, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response saveTheatricalPlay(Request request){
+        Response response;
+        try {
+            TheatricalPlay theatricalPlay = (TheatricalPlay) request.getData();
+            Long id = this.controller.saveTheatricalPlay(theatricalPlay);
+            response = new Response(ResponseType.SUCCESS, id, null);
+
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response savePerformance(Request request){
+        Response response;
+        try {
+            Performance performance = (Performance) request.getData();
+            controller.savePerformance(performance);
+            response = new Response(ResponseType.SUCCESS, null, null);
+
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response getTheatricalPlayForTitle(Request request){
+        Response response;
+        try {
+            String title = (String) request.getData();
+            TheatricalPlay theatricalPlay = controller.getTheatricalPlayForTitle(title);
+            response = new Response(ResponseType.SUCCESS, theatricalPlay, null);
+
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response getAllReservationsForMembers(){
+        Response response;
+        try {
+            List<Reservation> reservations = this.controller.getAllReservationsForMembers();
+            response = new Response(ResponseType.SUCCESS, reservations, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response getAllReservationsForSelectedMember(Request request){
+        Response response;
+        try {
+            String imePrezime = (String) request.getData();
+            List<Reservation> reservations = this.controller.getAllReservationsForSelectedMember(imePrezime);
+            response = new Response(ResponseType.SUCCESS, reservations, null);
+        } catch (Exception e) {
+            response = new Response(ResponseType.ERROR, null, e);
+        }
+        return response;
+    }
+    
+    public Response addTheatricalPlay(Request request){
+        Response response;
+        try {
+            TheatricalPlay theatricalPlay = (TheatricalPlay) request.getData();
+            this.controller.getTheatricalPLay(theatricalPlay);
             response = new Response(ResponseType.SUCCESS, null, null);
         } catch (Exception e) {
             response = new Response(ResponseType.ERROR, null, e);

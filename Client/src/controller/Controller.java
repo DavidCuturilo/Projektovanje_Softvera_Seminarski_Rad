@@ -14,9 +14,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Member;
 import model.Performance;
 import model.Reservation;
 import model.ReservationItem;
+import model.TheatricalPlay;
 
 /**
  *
@@ -189,6 +191,117 @@ public class Controller {
             
             if(response.getResponseType() == ResponseType.SUCCESS){
                 System.out.println("Uspesno obrisana rezervacija");
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public Long saveTheatricalPlay(TheatricalPlay theatricalPlay) throws Exception{
+        Request request = new Request(Operation.SAVE_THEATRICAL_PLAY, theatricalPlay);
+        Long id = null;
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                id = (Long) response.getData();
+                System.out.println("Uspesno sacuvana predstava");
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+            return id;
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public void savePerformance(Performance performance) throws Exception {
+        Request request = new Request(Operation.SAVE_PERFORMANCE, performance);
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                System.out.println("Uspesno sacuvano izvodjenje");
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public TheatricalPlay getTheatricalPlayForTitle(String title) throws Exception{
+        Request request = new Request(Operation.GET_THEATRICAL_PLAY_TITLE, title);
+        TheatricalPlay item;
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                item =  (TheatricalPlay) response.getData();
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+            return item;
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public List<Reservation> getAllReservationsForMembers() throws Exception{
+        Request request = new Request(Operation.GET_ALL_RESERVATIONS_FOR_MEMBERS, null);
+        List<Reservation> items;
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                items =  (List<Reservation>) response.getData();
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+            return items;
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public List<Reservation> getAllReservationsForSelectedMember(String imePrezime) throws Exception{
+        Request request = new Request(Operation.GET_ALL_RESERVATION_FOR_SELECTED_MEMBER, imePrezime);
+        List<Reservation> items;
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                items =  (List<Reservation>) response.getData();
+            }else{
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
+                throw response.getError();
+            }
+            return items;
+        } catch (Exception ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+    }
+    
+    public void addTheatricalPlay(TheatricalPlay theatricalPlay) throws Exception{
+        Request request = new Request(Operation.ADD_THEATRICAL_PLAY, theatricalPlay);
+        try {
+            Response response = Communication.getInstance().send(request);
+            
+            if(response.getResponseType() == ResponseType.SUCCESS){
+                System.out.println("Uspesno sacuvana predstava");
             }else{
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, response.getError());
                 throw response.getError();

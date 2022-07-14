@@ -5,10 +5,16 @@
  */
 package view.forms;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 import model.Performance;
+import model.TheatricalPlay;
+import model.enums.Genre;
 
 /**
  *
@@ -17,12 +23,13 @@ import model.Performance;
 public class TableModelPerformance extends AbstractTableModel {
     private List<Performance> performances;
     private String atributi[] = new String[] {"Title", "Genre", "Duration(min)", "Performance Date", "Stage", "Premiere"};
-    private Class atributsClass[] = new Class[] {String.class, String.class, Integer.class, Date.class, String.class, Boolean.class};
-
+    private Class atributsClass[] = new Class[] {String.class, String.class, Integer.class, String.class, String.class, Boolean.class};
+    private int rowSize;
+            
     public TableModelPerformance(List<Performance> performances) {
         this.performances = performances;
+        this.rowSize = this.performances.size()-1;
     }
-    
     
     @Override
     public int getRowCount() {
@@ -67,6 +74,48 @@ public class TableModelPerformance extends AbstractTableModel {
             default: 
                 return "n/a";
         }
+    }
+    
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        Performance performance = performances.get(rowIndex);
+        
+        switch(columnIndex){
+            case 0: 
+                performance.getTheatricalPlay().setTitle(aValue.toString());
+                break;
+            case 1:
+                performance.getTheatricalPlay().setGenre(Genre.valueOf(aValue.toString()));
+                break;
+            case 2:
+                performance.getTheatricalPlay().setDuration(Integer.parseInt(aValue.toString()));
+                break;
+            case 3:
+                SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    performance.setPerformanceDate(sd.parse(aValue.toString()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(TableModelPerformance.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            case 4:
+                System.out.println("Vrednost za stage: "+aValue.toString());
+                performance.setStage(aValue.toString());
+                break;
+            case 5:
+                performance.setPremiere(Boolean.parseBoolean(aValue.toString()));
+                break;
+            default:
+                break;
+        }
+    }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if(rowIndex > this.rowSize) {
+            return true;
+        }
+        return false;
     }
     
     public List<Performance> getAllPerformance(){

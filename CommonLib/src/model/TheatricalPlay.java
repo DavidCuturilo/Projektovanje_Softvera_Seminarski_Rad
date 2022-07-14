@@ -21,6 +21,9 @@ public class TheatricalPlay extends BaseModel implements Serializable {
     private String title;
     private int duration;
 
+    public TheatricalPlay() {
+    }
+    
     public TheatricalPlay(Long id, Genre genre, String title, int duration) {
         this.id = id;
         this.genre = genre;

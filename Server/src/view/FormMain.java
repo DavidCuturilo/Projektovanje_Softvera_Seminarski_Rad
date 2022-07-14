@@ -185,7 +185,6 @@ public class FormMain extends javax.swing.JFrame {
         lblStatus.setText("Offline");
         this.serverThread.disconnectClients();
         this.serverThread = null;
-        //clear table
         DefaultTableModel dtm = (DefaultTableModel) this.jTable1.getModel();
             int rows = dtm.getRowCount();
             if (rows >= 0) {
